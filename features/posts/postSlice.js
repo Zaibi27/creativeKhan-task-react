@@ -27,6 +27,7 @@ export const postSlice  = createSlice({
     }
 })
 export const { createPost , setPosts } = postSlice.actions ; 
-export const selectPosts = state => state.posts.posts ;
+export const selectPostsList = state => state.posts.posts ;
 export default postSlice.reducer ;
 
+export const selectPostById = (state, postId) =>  state.posts.posts.find(items => items.id === 1)

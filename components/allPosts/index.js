@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { selectPosts } from "../../features/posts/postSlice"
+import { selectPostsList } from "../../features/posts/postSlice"
 import { useSelector, useDispatch } from "react-redux"
 import Card from "./postCard"
 export default function Index() {
-    const postList = useSelector(selectPosts)
+    const postList = useSelector(selectPostsList)
     const dispatch = useDispatch();
     const [posts, setPosts] = useState();
 
@@ -25,7 +25,7 @@ export default function Index() {
                     :
                     <div>
                         {posts.map((item,i)=>(
-                            <div className="my-4">
+                            <div key={i} className="my-4">
                                 <Card title={item.title} body={item.body} id={item.id} />
                              </div>   
                         ))}
