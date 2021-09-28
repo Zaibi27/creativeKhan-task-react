@@ -11,7 +11,6 @@ export default function Index() {
     useEffect(() => {
         if (postList) {
             setPosts(postList);
-            console.log("Posts are here", postList);
         }
     }, [dispatch, postList])
     return (

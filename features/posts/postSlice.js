@@ -11,7 +11,6 @@ export const fetchPosts = createAsyncThunk("posts/fetchAllPosts", async () => {
 export const createPost = createAsyncThunk("posts/createNewPost", async (obj) => {
     const response = await axios.post("https://jsonplaceholder.typicode.com/posts" , obj)
    .then(res => {
-       console.log("Post created" , res.data)
        return res.data
    })
    return response ; 
@@ -20,7 +19,6 @@ export const createPost = createAsyncThunk("posts/createNewPost", async (obj) =>
 export const updatePost = createAsyncThunk("posts/updatePost", async (obj) => {
     const response = await axios.put("https://jsonplaceholder.typicode.com/posts/"+obj.id , obj)
    .then(res => {
-       console.log("Post updated" , res.data)
        return res.data
    })
    return response ; 
@@ -28,7 +26,6 @@ export const updatePost = createAsyncThunk("posts/updatePost", async (obj) => {
 export const deletePost = createAsyncThunk("posts/deletePost", async (postId) => {
     const response = await axios.put("https://jsonplaceholder.typicode.com/posts/"+postId )
    .then(res => {
-       console.log("Post deleted" , res.data)
        return res.data
    })
    return response ; 
