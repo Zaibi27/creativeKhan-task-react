@@ -17,6 +17,15 @@ export const createPost = createAsyncThunk("posts/createNewPost", async (obj) =>
    return response ; 
 })
 
+export const updatePost = createAsyncThunk("posts/updatePost", async (obj) => {
+    const response = await axios.put("https://jsonplaceholder.typicode.com/posts/"+obj.id , obj)
+   .then(res => {
+       console.log("Post updated" , res.data)
+       return res.data
+   })
+   return response ; 
+})
+
 
 
 export const postSlice  = createSlice({
@@ -32,7 +41,13 @@ export const postSlice  = createSlice({
         })
         .addCase(createPost.fulfilled , (state,action)=>{
             state.posts =  [...state.posts, action.payload]
-        } )  
+        })  
+        .addCase(updatePost.fulfilled , (state,action)=>{
+             let updatingItemIndex = state.posts.findIndex(item => item.id === action.payload.id) ;  
+            let updatingArray = state.posts ; 
+            updatingArray[updatingItemIndex] = action.payload
+            state.posts = updatingArray ;
+        })  
 }})
 export const { setPosts } = postSlice.actions ; 
 export const selectPostsList = state => state.posts.posts ;
