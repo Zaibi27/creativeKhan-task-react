@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { selectPostsList } from "../../features/posts/postSlice"
+import { selectPostsList  , createPost} from "../../features/posts/postSlice"
 import { useSelector, useDispatch } from "react-redux"
 import Card from "./postCard"
+import {useRouter} from "next/router" ; 
 export default function Index() {
     const postList = useSelector(selectPostsList)
     const dispatch = useDispatch();
     const [posts, setPosts] = useState();
-
+    const router = useRouter() ; 
     useEffect(() => {
         if (postList) {
             setPosts(postList);
@@ -15,7 +16,10 @@ export default function Index() {
     }, [dispatch, postList])
     return (
         <div className="container mx-auto py-4">
-            <h1 className="text-3xl font-semibold">All Posts</h1>
+            <div className="flex items-center space-x-4">
+                <h1 className="text-3xl font-semibold">All Posts</h1>
+                <button onClick={()=> router.push('/posts/new')} className="bg-indigo-600 py-4 px-2 rounded">Add Post</button>
+            </div>
             <div className="mt-4">
                 {!posts
                     ?

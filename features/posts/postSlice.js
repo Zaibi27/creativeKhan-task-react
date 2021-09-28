@@ -6,12 +6,18 @@ export const fetchPosts = createAsyncThunk("posts/fetchAllPosts", async () => {
    .then(res => {
        return res.data
    })
-
-   return response ;
-
-
-   
+   return response ; 
 })
+export const createPost = createAsyncThunk("posts/createNewPost", async (obj) => {
+    const response = await axios.post("https://jsonplaceholder.typicode.com/posts" , obj)
+   .then(res => {
+       console.log("Post created" , res.data)
+       return res.data
+   })
+   return response ; 
+})
+
+
 
 export const postSlice  = createSlice({
     name: "posts" , 
@@ -24,9 +30,11 @@ export const postSlice  = createSlice({
         builder.addCase(fetchPosts.fulfilled , (state,action)=>{
             state.posts = action.payload
         })
-    }
-})
-export const { createPost , setPosts } = postSlice.actions ; 
+        .addCase(createPost.fulfilled , (state,action)=>{
+            state.posts =  [...state.posts, action.payload]
+        } )  
+}})
+export const { setPosts } = postSlice.actions ; 
 export const selectPostsList = state => state.posts.posts ;
 export default postSlice.reducer ;
 
